@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- need meta viewport tag to allow for css media queries on mobile -->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>React Import External JSON</title>
+	<!-- local css -->
+	<style>
+		ol {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+
+		li {
+			display: inline-block;
+      padding: 20px;
+		}
+	</style>
+  
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+	<!-- root element for your react application -->
+	<div id="myApp"></div>
+
+  <!-- custom script with react component -->
+  <script type="text/babel">
+  "use strict";
+
+    function pList(props) {
+        return <div>
+          <ol>
+            {
+              props.list.map( 
+                (item,index) => {
+                  <li key={index}>
+                    <a href={item.link}>
+                      {item.food}
+                    </a>
+                  </li>
+                }
+              )
+            }
+          </ol>
+        </div>
+    }
+
+  // use jQuery to load JSON
+  $.getJSON("anything", function(jsonFromJquery) {
+    // render react
+    ReactDOM.render(
+      <pList list={jsonFromJquery} />,
+      document.getElementById("myApp");
+    );
+  }
+  
+  </script>
+  
+</body>
+
+</html>
